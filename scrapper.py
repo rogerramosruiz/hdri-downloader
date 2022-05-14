@@ -1,8 +1,7 @@
-from fileinput import filename
 from selenium import webdriver
 from selenium.webdriver.common.by import By 
 import concurrent.futures
-import os 
+
 
 allUrls = []
 

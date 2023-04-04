@@ -11,7 +11,7 @@ def main():
         scrapper.start(urlsFile)
     urls = readUrls(urlsFile)
     print('--------------------------- Downloading ---------------------------------------------')
-    print(f'# Acrchivos a descargar: {len(urls)}')
+    print(f'# Files to download: {len(urls)}')
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
         executor.map(download, urls)
     unzipAll(downloadDir)

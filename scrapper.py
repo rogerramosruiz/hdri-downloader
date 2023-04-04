@@ -6,6 +6,11 @@ import concurrent.futures
 allUrls = []
 
 def PolyHeaven(br):
+    """
+    br: Selnuim web driver
+
+    Scraps in dl.polyhaven.org
+    """
     downloadUrl = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/exr/8k/{}_8k.exr'
     br.get('https://polyhaven.com/hdris')
     items = br.find_elements(By.CLASS_NAME, 'GridItem_gridItem__0cuEz')
@@ -16,6 +21,11 @@ def PolyHeaven(br):
     return downloadUrls
 
 def hdri_hub(br):
+    """
+    br: Selnuim web driver
+
+    Scraps in hdri-hub.com
+    """
     br.get('https://www.hdri-hub.com/hdrishop/freesamples/freehdri')
     items = br.find_elements(By.CLASS_NAME, 'catItemBody')
     downloadUrls = []
@@ -27,6 +37,11 @@ def hdri_hub(br):
     return downloadUrls
 
 def ambientcg(br):
+    """
+    br: Selnuim web driver
+
+    Scraps in ambientcg.com
+    """
     br.get('https://ambientcg.com/list?type=HDRI')
     items = br.find_elements(By.TAG_NAME, 'a')
     urls = [i.get_attribute('href') for i in items]
@@ -39,19 +54,25 @@ def ambientcg(br):
     return downloadUrls
 
 def scrap(fun):
+    # Create a webdrider for google chrome in the background
     op = webdriver.ChromeOptions()
     op.add_argument('headless')
     br = webdriver.Chrome(options=op)
+    # scrapped urls
     urls = fun(br)
     allUrls.append(urls)
     br.close()
     return urls
 
 def start(filename):
+    """
+    file_name: file to save hdri urls
+    """
+    # scrapper functions
     execute = [PolyHeaven, hdri_hub, ambientcg]
     with concurrent.futures.ThreadPoolExecutor() as executor:
         executor.map(scrap, execute)
-    
+    # Write all the urls could be scrapped in a file
     with open(filename, 'w') as f:
         for urls in allUrls:
             for url in urls:

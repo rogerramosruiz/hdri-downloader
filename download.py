@@ -4,6 +4,10 @@ import zipfile
 import shutil
 
 def unzip(dir, zipName):
+    """
+    dir: Download directory 
+    zip_name: Zip file name
+    """
     zipName = f'{dir}/{zipName}'
     unzipFile = type('obj', (object,), {'file_size' : 0})
     with zipfile.ZipFile(zipName, 'r') as zip:

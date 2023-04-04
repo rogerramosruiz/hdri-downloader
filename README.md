@@ -27,9 +27,7 @@ cd hdri-downloader
 ### Download driver
 Download selenium web driver depending on your Google chrome version:
 
-```
 https://chromedriver.chromium.org/downloads
-```
 
 Unzip the file and and copy the chromedriver in the directory
 
